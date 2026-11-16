@@ -1,0 +1,136 @@
+/* ------------------------------------------------------------------ *
+ *  Shared rofi theme for the KDE helper scripts in this folder.
+ *
+ *  Colours are taken from the BreezeDark palette currently in use:
+ *    background  #272C31   (WM activeBackground)
+ *    background2 #31363B   (slightly lighter, for bars)
+ *    foreground  #FCFCFC   (ForegroundNormal)
+ *    dim text    #A1A9B1   (ForegroundInactive)
+ *    accent      #3DAEE9   (Colors:Selection / highlight)
+ *
+ *  Style: rounded corners, thick accent border, transparency.
+ *  Scripts tweak this theme per-mode with `rofi -theme-str`.
+ * ------------------------------------------------------------------ */
+
+configuration {
+    show-icons:          true;
+    drun-display-format: "{name}";
+}
+
+* {
+    bg:           rgba(39, 44, 49, 0.90);   /* window background       */
+    bg-alt:       rgba(49, 54, 60, 0.80);   /* inputbar / message      */
+    bg-selected:  rgba(61, 174, 233, 0.85); /* selected row            */
+    fg:           rgba(252, 252, 252, 1.00);
+    fg-dim:       rgba(161, 169, 177, 0.90);
+    accent:       rgba(61, 174, 233, 1.00);
+    accent-soft:  rgba(61, 174, 233, 0.55); /* window border           */
+    urgent:       rgba(176, 71, 69, 0.90);
+
+    border-size:  3px;
+    corner-radius: 18px;
+
+    font:         "Noto Sans 11";
+}
+
+window {
+    transparency:    "real";
+    location:        center;
+    anchor:          center;
+    width:           500px;
+    border:          @border-size;
+    border-radius:   @corner-radius;
+    border-color:    @accent-soft;
+    background-color: @bg;
+    padding:         16px;
+}
+
+mainbox {
+    background-color: transparent;
+    spacing:          12px;
+    children:         [ inputbar, message, listview ];
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius:    12px;
+    border:           0;
+    padding:          10px 14px;
+    spacing:          12px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @accent;
+}
+
+entry {
+    background-color: transparent;
+    text-color:       @fg;
+    placeholder:      "Search…";
+    placeholder-color: @fg-dim;
+    cursor:           text;
+}
+
+message {
+    background-color: @bg-alt;
+    border-radius:    12px;
+    padding:          10px 14px;
+}
+
+message text {
+    background-color: transparent;
+    text-color:       @fg-dim;
+}
+
+listview {
+    background-color: transparent;
+    columns:          1;
+    lines:            8;
+    spacing:          6px;
+    cycle:            true;
+    fixed-height:     false;
+    scrollbar:        false;
+    padding:          2px;
+}
+
+element {
+    background-color: transparent;
+    text-color:       @fg;
+    padding:          10px 12px;
+    spacing:          14px;
+    border:           2px;
+    border-radius:    12px;
+    border-color:     transparent;
+    children:         [ element-icon, element-text ];
+}
+
+element-icon {
+    background-color: transparent;
+    size:             28px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+    /* note: rofi's parser rejects @references in `highlight`,
+       so the accent colour is repeated here as a literal */
+    highlight:        bold rgba(61, 174, 233, 1.00);
+}
+
+element selected {
+    background-color: @bg-selected;
+    border-color:     @accent;
+    text-color:       @fg;
+}
+
+element-text selected {
+    text-color:       @fg;
+}
+
+element urgent {
+    background-color: @urgent;
+    border-color:     @urgent;
+}
